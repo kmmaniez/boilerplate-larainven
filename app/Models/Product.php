@@ -12,8 +12,9 @@ class Product extends Model
     use HasFactory, HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'id_kategori',
+        'nama_produk',
+        'harga_produk',
+        'stok',
     ];
 }

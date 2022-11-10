@@ -14,7 +14,7 @@ class Products extends Controller
      */
     public function index()
     {
-        //
+        return view('home');
     }
 
     /**
@@ -36,6 +36,8 @@ class Products extends Controller
     public function store(Request $request)
     {
         //
+        // $request->input('');
+        // Products::create()
     }
 
     /**

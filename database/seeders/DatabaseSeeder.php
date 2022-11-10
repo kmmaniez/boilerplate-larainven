@@ -20,5 +20,24 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        // Category seeder
+        $category = ['Baju','Celana','Hoodie','Jacket','Sepatu'];
+        for ($i=0; $i < count($category) ; $i++) { 
+            \App\Models\Category::factory()->create([
+                'nama_kategori' => $category[$i]
+            ]);
+        }
+
+        // Products seeder
+        $products = ['Baju muslim','Celana chinos','Hoodie P&B','Jacket Varsitiy','Converse'];
+        for ($i=0; $i < count($category); $i++) { 
+            \App\Models\Product::factory()->create([
+                'id_kategori' => rand(1,5),
+                'nama_produk' => $products[$i],
+                'harga_produk' => rand(2,6) * 3500,
+                'stok' => rand(5,20),
+            ]);
+        }
     }
 }

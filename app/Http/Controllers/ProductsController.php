@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,10 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return view('products.index');
+        return view('products.index', [
+            'data_product' => Product::all(),
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -24,7 +28,7 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        return view('products.create-products');
+        return view('products.create-product');
     }
 
     /**
@@ -35,8 +39,9 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        $nama   = $request->input('nama');
-        $harga  = $request->input('harga');
+        // dd($request);
+        $nama   = $request->input('nama_produk');
+        $harga  = $request->input('harga_produk');
         $stok   = $request->input('stok');
         
         Product::create([
@@ -56,8 +61,10 @@ class ProductsController extends Controller
      */
     public function show(Product $product)
     {
-        $products = Product::find($product);
-        echo $products;
+        // $products = Product::find($product);
+        // return view('products.edit-product', [
+        //     'data' => $product
+        // ]);
     }
 
     /**
@@ -69,6 +76,10 @@ class ProductsController extends Controller
     public function edit(Product $product)
     {
         //
+        return view('products.edit-product', [
+            'product' => $product,
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -80,7 +91,16 @@ class ProductsController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        // dd($request);
+        $rules = [
+            'id_kategori' => 'required',
+            'nama_produk' => 'required',
+            'harga_produk' => 'required',
+            'stok' => 'required'
+        ];
+        $validatedData = $request->validate($rules);
+        Product::where('id', $product->id)->update($validatedData);
+        return redirect('/products');
     }
 
     /**
@@ -92,5 +112,9 @@ class ProductsController extends Controller
     public function destroy(Product $product)
     {
         //
+        // dd($product);
+        // dd($product->toArray());
+        Product::destroy($product->id);
+        return redirect('/products')->with('success','Data berhasil dihapus');
     }
 }

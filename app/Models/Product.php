@@ -17,4 +17,9 @@ class Product extends Model
         'harga_produk',
         'stok',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

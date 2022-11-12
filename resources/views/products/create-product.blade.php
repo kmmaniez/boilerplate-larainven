@@ -7,19 +7,19 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{{ route('products.store') }}" method="post">
+    <form action="/products" method="post">
         @csrf
         <div>
-            <label for="nama">Nama</label>
-            <input type="text" name="nama" id="nama" />
+            <label for="nama_produk">nama</label>
+            <input type="text" name="nama_produk" id="nama_produk" value="{{ old('nama_produk') }}"/>
         </div>
         <div>
-            <label for="harga">Harga</label>
-            <input type="text" name="harga" id="harga" />
+            <label for="harga_produk">harga</label>
+            <input type="text" name="harga_produk" id="harga_produk" value="{{ old('harga_produk') }}"/>
         </div>
         <div>
             <label for="stok">Stok</label>
-            <input type="text" name="stok" id="stok" />
+            <input type="text" name="stok" id="stok" value="{{ old('stok') }}"/>
         </div>
         <button type="submit">Kirim</button>
     </form>
